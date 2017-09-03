@@ -43,3 +43,5 @@ done
 # Print parsed result
 echo "ARG_A = $ARG_A"
 echo "ARG_B = $ARG_B"
+
+# Now do something with the parsed arguments 
