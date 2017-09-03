@@ -1,4 +1,4 @@
-- Bash template with arguments for general usage -
+- Bash template with arguments for general usage
 
 Example usage and results:
 
