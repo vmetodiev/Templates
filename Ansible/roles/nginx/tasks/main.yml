@@ -1,0 +1,18 @@
+---
+- include_vars: ../vars/misc.yml
+- name: Install nginx web server
+  apt: pkg=nginx state=installed update_cache=true
+  notify:
+    - start nginx
+- name: Upload default index.php for host
+  copy: src= "{{ php_file }}" dest=/usr/share/nginx/www/ mode=0644
+  register: php
+  ignore_errors: True
+- name: Remove index.html from host
+  file: 
+    path: /usr/share/nginx/www/index.html
+    state: absent
+  when: php|success
+- name: Upload default index.html for host
+  copy: src= "{{ html_file }}" dest=/usr/share/nginx/www/ mode=0644
+  when: php|failed

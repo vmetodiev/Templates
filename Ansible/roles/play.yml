@@ -1,0 +1,8 @@
+---
+- hosts: agent
+  roles:
+    - role: nginx
+
+- hosts: vmetodiev
+  roles:
+    - role: nginx
