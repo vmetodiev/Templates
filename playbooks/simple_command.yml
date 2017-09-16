@@ -1,0 +1,9 @@
+---
+- hosts: cssrv, this
+  tasks:
+    - name: Execute simple command
+      command: echo "Hello from Ansible"
+      register: output
+
+    - name: Show output      
+      debug: msg="{{ output.stdout }}"

@@ -1,0 +1,13 @@
+---
+- hosts: server{{ HOST_NUM - 1 }}
+  tasks:
+   - name: Set variables
+     set_fact:
+         data_bridge: "private-br"
+         ip_databr: "172.16.16.{{ HOST_NUM }}/25"
+   
+   - shell: ovs-vsctl add-br {{ data_bridge }}
+     sudo: yes
+
+   - shell: ip addr add {{ ip_databr }} dev {{ data_bridge }}
+     sudo: yes

@@ -1,0 +1,10 @@
+---
+- hosts: server2 
+  tasks:
+    - name: Execute simple command
+      apt: pkg=openvswitch-switch state=installed update_cache=true
+      sudo: yes
+      register: output
+
+    - name: Show output      
+      debug: msg="{{ output.stdout }}"

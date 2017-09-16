@@ -1,0 +1,7 @@
+- hosts: vmetodiev
+  tasks:
+    - name: Test that my module works
+      datetime: 
+      register: result
+
+    - debug: var=result  

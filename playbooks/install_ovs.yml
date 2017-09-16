@@ -1,0 +1,9 @@
+---
+- hosts: cssrv 
+  tasks:
+    - name: Execute simple command
+      apt: pkg=openvswitch-switch state=installed update_cache=true
+      register: output
+
+    - name: Show output      
+      debug: msg="{{ output.stdout }}"

@@ -1,0 +1,31 @@
+---
+- hosts: server0,server1,server2
+  tasks:
+   - name: Backup Hosts file
+     sudo: yes
+     command: cp /etc/hosts /etc/hosts.backup
+
+   - name: Append to hosts
+     sudo: yes
+     shell: echo "{{ item }}" >> /etc/hosts
+     with_items:
+       - '31.171.245.164 server0.cloudsigma.tld'
+       - '31.171.244.169 server1.cloudsigma.tld'
+       - '178.22.69.205  server2.cloudsigma.tld'
+       - '31.171.245.164 master.cloudsigma.tld'
+
+   - name: Install NTP
+     apt: pkg=ntp  state=installed update_cache=true
+     sudo: yes
+     register: output
+
+   - name: Show output
+     debug: msg= "{{ output.stdout }}"
+
+   - name: Install Puppet Agent
+     apt: pkg=puppet  state=installed update_cache=true
+     sudo: yes
+     register: output
+
+   - name: Show output
+     debug: msg= "{{ output.stdout }}"

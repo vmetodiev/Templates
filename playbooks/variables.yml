@@ -1,0 +1,22 @@
+---
+- hosts: cssrv
+  tasks:
+   - name: Set variables
+     set_fact:
+         data_bridge: "data-br"
+         manmon_bridge: "manmon-br"
+         server0: "185.28.100.82"
+         server1: ""
+         server2: ""
+         server3: ""
+         ip_databr: "192.168.168.1/25"
+         ip_monmanbr: "10.10.10.1/25"
+   
+   - shell: ovs-vsctl add-br {{ data_bridge }}
+
+   - shell: ovs-vsctl add-br {{ manmon_bridge }} 
+
+   - shell: ip addr add {{ ip_databr }} dev {{ data_bridge }}
+
+   - shell: ip addr add {{ ip_monmanbr }} dev {{ manmon_bridge }}
+

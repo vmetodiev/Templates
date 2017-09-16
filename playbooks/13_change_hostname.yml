@@ -1,0 +1,11 @@
+---
+- hosts: server3
+  tasks:
+   - name: Backup Hosts file
+     sudo: yes
+     command: cp /etc/hosts /etc/hosts.backup
+
+   - name: Change hostname
+     sudo: yes
+     shell: hostnamectl set-hostname server3.cloudsigma.tld 
+

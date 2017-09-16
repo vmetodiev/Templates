@@ -1,0 +1,15 @@
+---
+- hosts: server0, server1, server2
+  tasks:
+   - name: Set variables
+     set_fact:
+         data_bridge: "private-br"
+
+   - shell: ovs-vsctl del-br {{ data_bridge }}
+     sudo: yes
+
+   - shell: ip addr show
+     sudo: yes
+     register: output
+
+   - debug: msg=" {{ output.stdout_lines }} "

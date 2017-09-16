@@ -1,0 +1,9 @@
+---
+- hosts: cssrv 
+  tasks:
+    - name: Execute simple command
+      command: aptitude search openvswitch
+      register: output
+
+    - name: Show output      
+      debug: msg="{{ output.stdout }}"

@@ -1,0 +1,27 @@
+---
+- hosts: server2 
+  tasks:
+    - name: Echo 
+      command: echo "Checking Open vSwitch Service if running"
+      register: output
+
+    - name: Show output      
+      debug: msg={{ output.stdout }}
+
+    - name: Check if Open vSwitch is running
+      command: systemctl status openvswitch-switch
+      ignore_errors: yes
+      changed_when: false
+      register: service_ovs_status
+
+    - name: Report status of OVS
+      debug: msg={{ service_ovs_status.stdout }}
+
+    - name: Report that OVS is running
+      shell: echo "Open vSwitch is up and running!"
+      register: if_ovs_up_result
+      when: '"active" in service_ovs_status.stdout'
+    
+    - name: Show message that OVS is running
+      debug: msg={{ if_ovs_up_result.stdout }}
+

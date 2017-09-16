@@ -1,0 +1,13 @@
+---
+- hosts: server{{ HOST_NUM }}
+  tasks:
+   - name: Set variables
+     set_fact:
+         ip_databr: "172.16.16.{{ HOST_NUM * 10 }}/24"
+         interface: "ens4"
+   
+   - shell: ip addr add {{ ip_databr }} dev {{ interface }}
+     sudo: yes
+
+   - shell: ip link set dev {{ interface }} up
+     sudo: yes

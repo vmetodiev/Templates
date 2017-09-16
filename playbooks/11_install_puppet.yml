@@ -1,0 +1,10 @@
+---
+- hosts: server0
+  tasks:
+   - name: Install Docker package for Ubuntu
+     apt: pkg=docker.io  state=installed update_cache=true
+     sudo: yes
+     register: output
+
+   - name: Show output
+     debug: msg= "{{ output.stdout }}"

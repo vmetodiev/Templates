@@ -1,0 +1,12 @@
+---
+- hosts: server0, server1, server2
+  tasks:
+   - name: Set variables
+     set_fact:
+         ifname: "ens4"
+   
+   - shell: ovs-vsctl add-port {{ BRIDGE }} {{ ifname }}
+     sudo: yes
+
+   - shell: ip link set dev {{ ifname }} up
+     sudo: yes
